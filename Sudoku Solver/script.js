@@ -83,7 +83,6 @@ function isValidBoard() {
         for (var j = 0; j < 9; j++) {
             if (board[i][j] != '.') {
                 if (numbers.has(board[i][j]))  {
-                    console.log(board[i][j]);
                     return false;
                 }
                 else numbers.add(board[i][j]);
@@ -96,7 +95,6 @@ function isValidBoard() {
         for (var j = 0; j < 9; j++) {
             if (board[j][i] != '.') {
                 if (numbers.has(board[j][i])) {
-                    console.log(board[j][i]);
                     return false;
                 }
                 else numbers.add(board[j][i]);
@@ -111,7 +109,6 @@ function isValidBoard() {
                 for (var j = c*3; j < c*3 + 3; j++) {
                     if (board[j][i] != '.') {
                         if (numbers.has(board[j][i])) {
-                            console.log(board[j][i]);
                             return false;
                         }
                         else numbers.add(board[j][i]);
@@ -147,7 +144,6 @@ const solve = function() {
 const findVoid = function() {
     for(var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            // console.log(i,j);
             if (board[i][j] === '.') {
                 return [i,j];
             }
@@ -197,10 +193,9 @@ function validateSudoku() {
         err.innerText = 'Invalid board, any column, row or box has repeated value';
         return false;
     }
-    console.log('solving...');
+    // console.log('solving...');
     solve();
-    console.log('Done.');
-    console.log(board);
+    // console.log('Done.');
     console.log(cnt);
     updateBoard();
     undobtn.disabled = false;
@@ -215,7 +210,6 @@ function undo() {
             k++;
         }
     }
-    console.log(board);
     updateBoard();
     undobtn.disabled = true;
 }
