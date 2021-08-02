@@ -9,6 +9,7 @@ body {
     margin: 0;
     height: 100vh;
     display: flex;
+    width: 100vw;
     flex-direction: column;
     align-items: center;
     /* justify-content: center; */
@@ -80,4 +81,19 @@ input[type=number] {
 .btn:disabled {
     cursor: not-allowed;
     opacity: 0.6;
+}
+
+@media (max-width: 560px) {
+    input[type=number] {
+        height: 36px;
+        width: 36px;
+        padding: 8px 8px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    #board {
+        min-width: 330px;
+        margin: 10px auto;
+    }
+    
 }
