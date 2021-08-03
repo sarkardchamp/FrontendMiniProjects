@@ -227,7 +227,7 @@ function genBoard(params) {
     }
     updateBoard(false);
 }
-console.log('updated again');
+console.log('updated');
 function generatePuzzle() {
     var level = prompt("Select level: (1-Easy, 2-Medium, 3-Hard)", "1");
     if (isNaN(Number(level)) || Number(level) > 3 || Number(level) < 1) {
@@ -243,7 +243,7 @@ function generatePuzzle() {
                 genBoard(this.responseText);
             }
         }
-        xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString());
+        xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString(), false);
         xhttp.send();
         console.log("done!");
     } catch {
