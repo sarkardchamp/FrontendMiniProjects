@@ -236,14 +236,14 @@ function generatePuzzle() {
     } else {
         level = Number(level);
     }
-    const xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if(this.readyState == 4 && this.status == 200) {
-            genBoard(this.responseText);
-        }
-    }
-    xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString());
     try {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if(this.readyState == 4 && this.status == 200) {
+                genBoard(this.responseText);
+            }
+        }
+        xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString());
         xhttp.send();
     } catch {
         err.innerHTML = 'Access Required. head to <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank">this Link</a> and click on <kbd>Request temporary access to the demo server<kbd>'
