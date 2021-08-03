@@ -168,12 +168,15 @@ const updateBoard = function (solution = true) {
                     cells[k].value = board[i][j];
                     if (!solution) {
                         cells[k].classList.add('generated');
+                        cells[k].disabled = true
+                    } else {
+                        cells[k].disabled = false
                     }
                 } else {
                     cells[k].value = '';
+                    cells[k].disabled = false;
                 }
             }
-            
             k++;
         }
     }
