@@ -1,6 +1,7 @@
 var root = document.getElementById('board');
 var err = document.getElementById('err');
 var btn = document.getElementById('solve');
+var granted_access = false;
 var cnt = 0;
 var undobtn = document.getElementById('undo');
 for (var  i = 1; i < 10; i++) {
@@ -227,8 +228,15 @@ function genBoard(params) {
     }
     updateBoard(false);
 }
-console.log('updated');
+
 function generatePuzzle() {
+    granted_access = sessionStorage.getItem('access')
+    if (!granted_access) {
+        alert("Allow Access First! Click on button, then comeback and refresh!");
+        window.open("https://cors-anywhere.herokuapp.com/corsdemo","_blank");
+        sessionStorage.setItem('access', 'true')
+        return false;
+    }
     var level = prompt("Select level: (1-Easy, 2-Medium, 3-Hard)", "1");
     if (isNaN(Number(level)) || Number(level) > 3 || Number(level) < 1) {
         alert("Invalid Level, Setting to Easy");
@@ -236,17 +244,12 @@ function generatePuzzle() {
     } else {
         level = Number(level);
     }
-    try {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if(this.readyState == 4 && this.status == 200) {
-                genBoard(this.responseText);
-            }
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            genBoard(this.responseText);
         }
-        xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString(), false);
-        xhttp.send();
-        console.log("done!");
-    } catch {
-        err.innerHTML = 'Access Required. head to <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank">this Link</a> and click on <kbd>Request temporary access to the demo server<kbd>'
     }
+    xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString());
+    xhttp.send();
 }
