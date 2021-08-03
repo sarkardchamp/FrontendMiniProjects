@@ -245,6 +245,7 @@ function generatePuzzle() {
         }
         xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString());
         xhttp.send();
+        console.log("done!");
     } catch {
         err.innerHTML = 'Access Required. head to <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank">this Link</a> and click on <kbd>Request temporary access to the demo server<kbd>'
     }
