@@ -213,6 +213,14 @@ function genBoard(params) {
         params = params.squares;
     }
     formBoard();
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].classList.remove('generated','filled');
+    }
+    for (let i = 0; i < 9; i++) {
+        for(let j = 0; j < 9; j++) {
+            board[i][j] = '.';
+        }
+    }
     console.log(params);
     for (let i = 0; i < params.length; i++) {
         board[params[i].x][params[i].y] = String(params[i].value);
