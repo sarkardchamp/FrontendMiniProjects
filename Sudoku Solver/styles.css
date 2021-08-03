@@ -47,7 +47,10 @@ input.err, input.err:active {
     transition: background-color 0.5s ease-in-out;
     transition: border-color 0.5s ease-in-out;
 }
-
+input.generated {
+    background-color: rgb(2, 84, 90);
+    color: #fff;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -84,6 +87,9 @@ input[type=number] {
 }
 
 @media (max-width: 560px) {
+    body {
+        margin: 0 12px;
+    }
     input[type=number] {
         height: 36px;
         width: 36px;

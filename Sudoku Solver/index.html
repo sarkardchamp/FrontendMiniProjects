@@ -12,8 +12,12 @@
     <p id="err"></p>
     <p class="instructions">Enter Values in boxes corresponding to the Problem Sudoku.</p>
     <div class="board" id="board"></div>
-    <button class="btn" id="solve" onclick="validateSudoku()">Solve Sudoku</button>
-    <button class="btn" id="undo" disabled onclick="undo()">Revert Back</button>
+    <p class="buttons">
+        <button class="btn" id="solve" onclick="validateSudoku()">Solve Sudoku</button>
+        <button class="btn" id="undo" disabled onclick="undo()">Revert Back</button>
+        <button id="genboard" class="btn" onclick="generatePuzzle()">Generate Board</button>
+    </p>
     <script src="script.js"></script>
+
 </body>
 </html>

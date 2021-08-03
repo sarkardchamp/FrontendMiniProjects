@@ -141,17 +141,6 @@ const solve = function() {
     return true;
 };
 
-const findVoid = function() {
-    for(var i = 0; i < 9; i++) {
-        for (var j = 0; j < 9; j++) {
-            if (board[i][j] === '.') {
-                return [i,j];
-            }
-        }
-    }
-    return false;
-};
-
 const  isValid = function(num, pos) {
     for (var i = 0; i < 9; i++) {
         if (board[pos[0]][i] == num && pos[1] != i) return false;
@@ -169,14 +158,17 @@ const  isValid = function(num, pos) {
     return true;
 };
 
-const updateBoard = function () {
+const updateBoard = function (solution = true) {
     var k = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
             if (!cells[k].classList.contains('filled')) {
-                if (board[i][j] !== '.')
+                if (board[i][j] !== '.') {
                     cells[k].value = board[i][j];
-                else {
+                    if (!solution) {
+                        cells[k].classList.add('generated');
+                    }
+                } else {
                     cells[k].value = '';
                 }
             }
@@ -200,11 +192,12 @@ function validateSudoku() {
     updateBoard();
     undobtn.disabled = false;
 }
+
 function undo() {
     var k = 0;
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            if (!cells[k].classList.contains('filled')) {
+            if (!(cells[k].classList.contains('filled') || cells[k].classList.contains('generated'))) {
                 board[i][j] = '.';
             }
             k++;
@@ -212,4 +205,39 @@ function undo() {
     }
     updateBoard();
     undobtn.disabled = true;
+}
+
+function genBoard(params) {
+    params = JSON.parse(params);
+    if (params.response) {
+        params = params.squares;
+    }
+    formBoard();
+    console.log(params);
+    for (let i = 0; i < params.length; i++) {
+        board[params[i].x][params[i].y] = String(params[i].value);
+    }
+    updateBoard(false);
+}
+
+function generatePuzzle() {
+    var level = prompt("Select level: (1-Easy, 2-Medium, 3-Hard)", "1");
+    if (isNaN(Number(level)) || Number(level) > 3 || Number(level) < 1) {
+        alert("Invalid Level, Setting to Easy");
+        level = 1;
+    } else {
+        level = Number(level);
+    }
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            genBoard(this.responseText);
+        }
+    }
+    xhttp.open("GET", "https://cors-anywhere.herokuapp.com/http://www.cs.utep.edu/cheon/ws/sudoku/new/?size=9" + "&level=" + level.toString());
+    try {
+        xhttp.send();
+    } catch {
+        err.innerHTML = 'Access Required. head to <a href="https://cors-anywhere.herokuapp.com/corsdemo" target="_blank">this Link</a> and click on <kbd>Request temporary access to the demo server<kbd>'
+    }
 }
