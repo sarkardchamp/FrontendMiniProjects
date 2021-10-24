@@ -236,7 +236,7 @@ function generatePuzzle() {
     granted_access = sessionStorage.getItem('access')
     if (!granted_access) {
         alert("Allow Access First! Click on button, then comeback and refresh!");
-        window.open("https://cors-anywhere.herokuapp.com/corsdemo","_blank");
+        window.open("https://cors-anywhere.herokuapp.com/corsdemo");
         sessionStorage.setItem('access', 'true')
         return false;
     }
