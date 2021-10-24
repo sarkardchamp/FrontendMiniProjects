@@ -8,9 +8,12 @@ const audios = {
   k: "crash",
   l: "kick-bass",
 };
+let temp = "tom-1";
+let audio = new Audio("sounds/" + temp + ".mp3");
 btns.forEach((btn) => {
   btn.addEventListener("click", () => {
-    let audio = new Audio("sounds/" + audios[btn.innerHTML] + ".mp3");
+    temp = audios[btn.innerHTML];
+    audio.src = "sounds/" + temp + ".mp3";
     audio.play();
   });
 });
